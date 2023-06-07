@@ -1,4 +1,4 @@
-@extends('template.default')
+@extends('merger.main')
 
 @section('file')
     <div class="row justify-content-center">

@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Dokumen;
+use DirectoryIterator;
+use Illuminate\Contracts\Cache\Store;
 use Webklex\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Storage;
 
 class DokumenController extends Controller
 {
     public function uploadpage()
     {
-        return view('template.default');
+        return view('merger.main');
     }
 
 
@@ -28,6 +32,7 @@ class DokumenController extends Controller
         $data->Dokumen=$filename;
 
         $data->save();
+        Alert::success('Successful!', 'The file was uploaded successfully.');
         return redirect()->back();
     }
 
@@ -35,17 +40,24 @@ class DokumenController extends Controller
     {
         $filename = time().'.pdf';
         $destinationPath = public_path('Dokumen');
-
-        if ($request->hasFile('Dokumen')){
+        //  dd($destinationPath);
+        // dd(Storage::allFiles("public"));
+        Alert::success('test');
+        
+        //dd($request->hasFile($destinationPath));
+        if ($request->hasFile($destinationPath)){
             $pdf = PDFMerger::init();
-
-            foreach($request->file('Dokumen') as $key=>$value){
+            
+            Alert::success('test2');
+            foreach($request->file($destinationPath) as $key=>$value){
                 $pdf->addPDF($value->getPathName(),'all');
             }
 
+            Alert::success('test3');
             $pdf->merge();
             $pdf->save($destinationPath,$filename);
         }
+        Alert::success('if selesai');
         return response()->download($destinationPath,$filename);
     }
 
@@ -53,13 +65,13 @@ class DokumenController extends Controller
     public function show()
     {
         $data=dokumen::all();
-        return view('showfile',compact('data'));
+        return view('merger.showfile',compact('data'));
     }
 
     public function view($id)
     {
         $data=dokumen::find($id);
-        return view('viewfile',compact('data'));
+        return view('merger.viewfile',compact('data'));
     }
 
 }

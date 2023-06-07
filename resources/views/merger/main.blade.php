@@ -79,7 +79,23 @@
 
         <div class="main1">
             <div class="main2">
-                @yield('content')
+                <div class="kotak1">
+                    <form action="{{route('uploadedfile.store')}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        @include('sweetalert::alert')
+                            <input type="file" id="file-input" name="Dokumen"/ >
+                            <input type="submit">
+                    </form>
+
+                    <span class="textkotak1">Format file yang didukung hanyalah PDF</span>
+                </div>
+
+                <span class="textkotak2">Dokumen diunggah </span>
+                <div class="kotak2">
+                    @yield('file')
+                    <a href="/merger1" class="btn btn-xs btn-success pull-center" id="mergefile">Merge PDF</a>
+
+                </div>
             </div>
         </div>
     </div>

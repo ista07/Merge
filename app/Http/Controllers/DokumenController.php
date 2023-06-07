@@ -9,6 +9,7 @@ use Illuminate\Contracts\Cache\Store;
 use Webklex\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\facades\Validator;
 
 class DokumenController extends Controller
 {
@@ -20,10 +21,20 @@ class DokumenController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'Dokumen.*' => 'required|file|max:5000|mimes:pdf',
+        // $request->validate([
+        //     'Dokumen' => 'required|file|max:5000|mimes:pdf',
+        // ]);
+        $data=dokumen::all();
+        $validator = Validator::make($request->all(),[
+            'Dokumen' => 'required|file|max:5000|mimes:pdf'
         ]);
-
+        // dd("test");
+        // dd($validator->fails());
+        if($validator->fails()){
+            // dd("test");
+            Alert::error('fail',$validator->errors()->first());
+            return view('merger.showfile',compact('data'));
+        }
         $data=new Dokumen();
         $Dokumen=$request->Dokumen;
         $filename=time().'.'.$Dokumen->getClientOriginalExtension();
@@ -33,7 +44,8 @@ class DokumenController extends Controller
 
         $data->save();
         Alert::success('Successful!', 'The file was uploaded successfully.');
-        return redirect()->back();
+        $data=dokumen::all();
+        return view('merger.showfile',compact('data'));
     }
 
     public function merger(Request $request)

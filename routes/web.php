@@ -19,29 +19,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-//MyTask
-Route::controller(MytaskController::class)->group(function () {
-    Route::get('/mytask/creattask','isiDataIndividu');
-    Route::get('/mytask','mytask');
-    Route::post('/mytask/storetask','storeDataKelompok');
 
-});
-
-
+//Merger
 Route::get('/merger',[DokumenController::class,'uploadpage'])->name('uploadpage');
 Route::post('/merger',[DokumenController::class,'store'])->name('uploadedfile.store');
 Route::get('/merger1',[DokumenController::class,'merger'])->name('mergefile');
 
-
 Route::get('/merger',[DokumenController::class,'show'])->name('uploadedfile.show');
-
 Route::get('/merger-view/{id}',[DokumenController::class,'view'])->name('uploadedfile.view');
 
 
-Route::get('/merger2', function () {
-    return view('template.default2');
-});
-
-Route::get('/merger3', function () {
-    return view('template.default3');
+//Progress
+Route::get('/progress', function () {
+    return view('progress.main');
 });

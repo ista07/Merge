@@ -7,9 +7,9 @@
 
             @foreach($data as $data)
             <tr>
-                <td><i class="fa-solid fa-file-pdf my-2" style="color: #f33939;"></i></td>
+                <td><i class="fa-solid fa-file-pdf my-2 mx-1" style="color: #f33939;"></i></td>
                 <td>{{$data->Dokumen}}</td>
-                <td><a href="{{url('/merger-view',$data->id)}}">View</a></td>
+                <td><a href="{{url('/merger-view',$data->id)}}" class="mx-2">View</a></td>
             </tr>
             
             @endforeach

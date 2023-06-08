@@ -93,7 +93,7 @@
                 <span class="textkotak2">Dokumen diunggah </span>
                 <div class="kotak2">
                     @yield('file')
-                    <a href="/merger1" class="btn btn-xs btn-success pull-center" id="mergefile">Merge PDF</a>
+                    <a href="/merger1" class="btn btn-xs btn-success pull-center my-2" id="mergefile">Merge PDF</a>
 
                 </div>
             </div>

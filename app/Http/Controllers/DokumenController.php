@@ -32,7 +32,7 @@ class DokumenController extends Controller
         // dd($validator->fails());
         if($validator->fails()){
             // dd("test");
-            Alert::error('fail',$validator->errors()->first());
+            Alert::error('Fail',$validator->errors()->first());
             return view('merger.showfile',compact('data'));
         }
         $data=new Dokumen();
